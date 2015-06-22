@@ -33,11 +33,11 @@
 
         if (s.debug) log("##################### init()");
 
-        if (s.device == 'mobile' || s.device == "tablet" ){
-          Both.array.add(s.types, "touch");
+        if (s.device == 'mobile' || s.device == "tablet") {
+          this.set('touch', true);
         }
-        else{
-          Both.array.add(s.types, "mouse");
+        else {
+          this.set('mouse', true);
         }
 
         s.oHandlersData = {
@@ -53,9 +53,13 @@
         if (s.debug) log("##################### bindUIActions()");
 
         var _movewait;
-        var _return;
+        var _return;    // boolean to not fire mousemove event after touchstart event
         $(document).on('mousemove', function (e) {
-          if (_return || s.types.indexOf('mouse') > -1) return;
+          if (_return) {
+            _return = false;
+            return;
+          }
+          if (s.types.indexOf('mouse') > -1) return;
           if (s.debug) log('>>> mousemove');
           if (typeof _movewait != 'undefined') {
             clearTimeout(_movewait);
@@ -63,11 +67,7 @@
           _movewait = setTimeout(function () {
 
             if (s.debug) log('>>> movewait');
-            $('html').removeClass('touch').addClass('mouse');
-            s.touch = false;
-            s.mouse = true;
-            Both.array.add(s.types, "mouse");
-            Both.array.remove(s.types, "touch");
+            Both.set('mouse', e);
             Both.handleInteractionTypeChange(e);
           }, s.iInterval);
         });
@@ -75,18 +75,15 @@
         $(document).on('touchstart', function (e) {
           if (s.types.indexOf('touch') > -1) return;
           if (s.debug) log('>>> touchstart');
-          $('html').removeClass('mouse').addClass('touch');
-          s.touch = true;
-          s.mouse = false;
-          Both.array.add(s.types, "touch");
-          Both.array.remove(s.types, "mouse");
+          Both.set('touch', e);
           Both.handleInteractionTypeChange(e);
           _return = true;
         });
 
-        $(document).on('click', function (e) {
+        /*$(document).on('click', function (e) {
+          if (s.debug) log('>>> click');
           _return = false;
-        });
+        });*/
 
       },
 
@@ -112,6 +109,23 @@
         }
 
         return $returnObject;
+      },
+
+      set: function (type) {
+        if (type == 'mouse') {
+          $('html').removeClass('touch').addClass('mouse');
+          s.touch = false;
+          s.mouse = true;
+          Both.array.add(s.types, "mouse");
+          Both.array.remove(s.types, "touch");
+        }
+        else if (type == 'touch') {
+          $('html').removeClass('mouse').addClass('touch');
+          s.touch = true;
+          s.mouse = false;
+          Both.array.add(s.types, "touch");
+          Both.array.remove(s.types, "mouse");
+        }
       },
 
       start: function () {
@@ -148,27 +162,22 @@
         if (s.debug) log("##################### switch()");
         var _oType = {
           on: s.types.indexOf('mouse') > -1 ? 'mouse' : 'touch',
-          off: s.types.indexOf('touch') > -1 ? 'touch' : 'mouse'
+          off: s.types.indexOf('mouse') > -1 ? 'touch' : 'mouse'
         };
         _type = 'mouse' in s.types ? 'mouse' : 'touch';
+        if (s.debug) log(s.types);
         Both.on(_oType.on);
         Both.off(_oType.off);
       },
 
-      get: function(type){
-        var _oHandlerData = {
-          selector: s.oHandlersData[type][i]['selector'],
-          event: s.oHandlersData[type][i]['event'],
-          handler: s.oHandlersData[type][i]['handler']
-        }
-        return _oHandlerData;
-      },
-
       on: function (type) {
         if (s.debug) log("##################### on()");
-
         for (var i = 0; i < s.oHandlersData[type].length; i++) {
-          var _oHandlerData = Both.get(type);
+          var _oHandlerData = {
+            selector: s.oHandlersData[type][i]['selector'],
+            event: s.oHandlersData[type][i]['event'],
+            handler: s.oHandlersData[type][i]['handler']
+          }
           _oHandlerData.selector.on(_oHandlerData.event, _oHandlerData.handler);
         }
       },
@@ -176,7 +185,11 @@
       off: function (type) {
         if (s.debug) log("##################### off()");
         for (var i = 0; i < s.oHandlersData[type].length; i++) {
-          var _oHandlerData = Both.get(type);
+          var _oHandlerData = {
+            selector: s.oHandlersData[type][i]['selector'],
+            event: s.oHandlersData[type][i]['event'],
+            handler: s.oHandlersData[type][i]['handler']
+          }
           _oHandlerData.selector.off(_oHandlerData.event, _oHandlerData.handler);
         }
       },
@@ -191,7 +204,7 @@
         remove: function (array, item) {
           if (s.debug) log("##################### array.remove()");
           var index = array.indexOf(item);
-          array.splice(index, 1);
+          if (index > -1) array.splice(index, 1);
         }
 
       },
@@ -218,11 +231,11 @@
           for (var property in obj) {
             if (obj.hasOwnProperty(property)) {
               if (typeof obj[property] == "object") {
-               Both.iterate(obj[property]);
-               }
-               else {
-               console.log(property + "   " + obj[property]);
-               }
+                Both.iterate(obj[property]);
+              }
+              else {
+                console.log(property + "   " + obj[property]);
+              }
             }
           }
         },

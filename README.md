@@ -33,7 +33,22 @@ If you use a detecting mobile devices solution (like Mobile Detect or Device.js)
     Both.init();
 ```
 
-### Add your events for touch and mouse
+### Add your mouse and touch events
+
+#### That...
+```js
+// mouse
+$('.your-class').on('mouseenter', function() {
+   alert("Mickey");
+});
+
+// touch
+$('.your-class').on('touchend', function() {
+   alert("Tacchi");
+});
+```
+
+#### ... becomes this!
 ```js
     Both.store('mouse', $('.your-class'), 'mouseenter', function (e) {
         alert("Mickey");
@@ -48,7 +63,9 @@ If you use a detecting mobile devices solution (like Mobile Detect or Device.js)
     Both.start();
 ```
 
-#### You can also grab Both using bower:
+#### After that, all event handlers are added/removed according to the interaction type detected. :)
+
+## You can also grab Both using bower:
 ```
     bower install both --save
 ```
