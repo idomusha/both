@@ -3,8 +3,6 @@
 ## detects in real time user interaction type (Mouse or Touch) and switches linked events
 Because [the user may have touch AND a mouse](http://www.html5rocks.com/en/mobile/touchandmouse/).
 
-* **Authors**: idomusha
-
 ## Usage
 
 ### Add both.min.js before your closing <body> tag, after jQuery (requires jQuery 1.7 +)
@@ -69,3 +67,13 @@ $('.your-class').on('touchend', function() {
 ```
     bower install both --save
 ```
+
+#### Authors
+
+[![idomusha](https://fr.gravatar.com/userimage/43584317/49cfb592a2054e9c39c5dc195e5ea419.png?size=70)](https://github.com/idomusha) |
+--- |
+[idomusha](https://github.com/idomusha) |
+
+## License
+
+MIT: [http://idomusha.mit-license.org/](http://idomusha.mit-license.org/)
