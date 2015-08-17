@@ -28,8 +28,8 @@ module.exports = function(grunt) {
         banner: '<%= meta.banner %>',
       },
       dist: {
-        src: ['src/js/threshold.js'],
-        dest: 'dist/threshold.js',
+        src: ['src/js/both.js'],
+        dest: 'dist/both.js',
       },
     },
 
@@ -47,8 +47,8 @@ module.exports = function(grunt) {
           sourceMap: true,
           strictMath: true,
         },
-        src: ['src/less/threshold.less'],
-        dest: 'dist/threshold.css',
+        src: ['src/less/both.less'],
+        dest: 'dist/both.css',
       },
       production: {
         options: {
@@ -58,8 +58,8 @@ module.exports = function(grunt) {
           sourceMap: true,
           strictMath: true,
         },
-        src: ['src/less/threshold.less'],
-        dest: 'dist/threshold.css',
+        src: ['src/less/both.less'],
+        dest: 'dist/both.css',
       },
     },
 
@@ -73,16 +73,16 @@ module.exports = function(grunt) {
         options: {
           browsers: ['last 2 version', 'Firefox >= 24', 'safari 6', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'],
         },
-        src: 'dist/threshold.css',
-        dest: 'dist/threshold.css',
+        src: 'dist/both.css',
+        dest: 'dist/both.css',
       },
     },
 
     // Minify definitions
     uglify: {
       my_target: {
-        src: ['dist/threshold.js'],
-        dest: 'dist/threshold.min.js',
+        src: ['dist/both.js'],
+        dest: 'dist/both.min.js',
       },
       options: {
         banner: '<%= meta.banner %>',
