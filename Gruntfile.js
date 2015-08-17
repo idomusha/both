@@ -99,7 +99,7 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask('build', ['less:development', 'autoprefixer', 'concat', 'uglify']);
+  grunt.registerTask('build', [/*'less:development', 'autoprefixer', */'concat', 'uglify']);
   grunt.registerTask('default', ['build']);
 
 };
