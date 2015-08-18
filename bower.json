@@ -11,6 +11,7 @@
     "idomusha <idomusha@gmail.com>"
   ],
   "description": "detects in real time user interaction type (Mouse or Touch) and switches linked events",
+  "main": "src/js/both.js",
   "keywords": [
     "interaction",
     "mouse",
