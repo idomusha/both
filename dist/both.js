@@ -39,7 +39,7 @@
         this.settings = $.extend({}, this.defaults, this.options);
         s = this.settings;
 
-        if (s.debug) log("##################### init()");
+        if (s.debug) console.log("##################### init()");
 
         if (s.device == 'mobile' || s.device == "tablet") {
           this.set('touch', true);
@@ -58,38 +58,39 @@
       },
 
       bindUIActions: function () {
-        if (s.debug) log("##################### bindUIActions()");
+        if (s.debug) console.log("##################### bindUIActions()");
 
         var _movewait;
         var _return;    // boolean to not fire mousemove event after touchstart event
         $(document).on('mousemove', function (e) {
-          if (_return) {
+          if (s.types.indexOf('mouse') > -1) return;
+          /*if (_return) {
             _return = false;
             return;
-          }
-          if (s.types.indexOf('mouse') > -1) return;
-          if (s.debug) log('>>> mousemove');
+          }*/
+          if (s.debug) console.log('>>> mousemove');
           if (typeof _movewait != 'undefined') {
             clearTimeout(_movewait);
           }
           _movewait = setTimeout(function () {
 
-            if (s.debug) log('>>> movewait');
+            if (s.debug) console.log('>>> movewait');
             Both.set('mouse', e);
             Both.handleInteractionTypeChange(e);
           }, s.iInterval);
         });
 
         $(document).on('touchstart', function (e) {
+          e.preventDefault();
           if (s.types.indexOf('touch') > -1) return;
-          if (s.debug) log('>>> touchstart');
+          if (s.debug) console.log('>>> touchstart');
           Both.set('touch', e);
           Both.handleInteractionTypeChange(e);
-          _return = true;
+          //_return = true;
         });
 
         /*$(document).on('click', function (e) {
-          if (s.debug) log('>>> click');
+          if (s.debug) console.log('>>> click');
           _return = false;
         });*/
 
@@ -97,7 +98,7 @@
 
       define: function (o) {
         if (s.debug) {
-          log("##################### define()");
+          console.log("##################### define()");
         }
 
         var $returnObject = null;
@@ -142,19 +143,19 @@
 
       handleInteractionTypeChange: function (e) {
         var _text = typeof(e) == "boolean" && e ? 'is setted' : 'has changed'
-        if (s.debug) log('---------------------------------------------------');
-        if (s.debug) log('Interaction type ' + _text + ': ' + s.types.toString());
-        if (s.debug) log('---------------------------------------------------');
+        if (s.debug) console.log('---------------------------------------------------');
+        if (s.debug) console.log('Interaction type ' + _text + ': ' + s.types.toString());
+        if (s.debug) console.log('---------------------------------------------------');
         Both.switch();
       },
 
       store: function (context, selector, event, handler) {
-        if (s.debug) log("##################### store()");
+        if (s.debug) console.log("##################### store()");
 
-        if (s.debug) log("- context", context);
-        if (s.debug) log("- selector", selector);
-        if (s.debug) log("- event", event);
-        if (s.debug) log("- handler", handler);
+        if (s.debug) console.log("- context", context);
+        if (s.debug) console.log("- selector", selector);
+        if (s.debug) console.log("- event", event);
+        if (s.debug) console.log("- handler", handler);
 
         s.oHandlersData[context].push({
           selector: selector,
@@ -162,24 +163,24 @@
           handler: handler
         });
 
-        if (s.debug) log("s.oHandlersData", s.oHandlersData);
+        if (s.debug) console.log("s.oHandlersData", s.oHandlersData);
 
       },
 
       switch: function () {
-        if (s.debug) log("##################### switch()");
+        if (s.debug) console.log("##################### switch()");
         var _oType = {
           on: s.types.indexOf('mouse') > -1 ? 'mouse' : 'touch',
           off: s.types.indexOf('mouse') > -1 ? 'touch' : 'mouse'
         };
         _type = 'mouse' in s.types ? 'mouse' : 'touch';
-        if (s.debug) log(s.types);
+        if (s.debug) console.log(s.types);
         Both.on(_oType.on);
         Both.off(_oType.off);
       },
 
       on: function (type) {
-        if (s.debug) log("##################### on()");
+        if (s.debug) console.log("##################### on()");
         for (var i = 0; i < s.oHandlersData[type].length; i++) {
           var _oHandlerData = {
             selector: s.oHandlersData[type][i]['selector'],
@@ -191,7 +192,7 @@
       },
 
       off: function (type) {
-        if (s.debug) log("##################### off()");
+        if (s.debug) console.log("##################### off()");
         for (var i = 0; i < s.oHandlersData[type].length; i++) {
           var _oHandlerData = {
             selector: s.oHandlersData[type][i]['selector'],
@@ -205,12 +206,12 @@
       array: {
 
         add: function (array, item) {
-          if (s.debug) log("##################### array.add()");
+          if (s.debug) console.log("##################### array.add()");
           array.push(item);
         },
 
         remove: function (array, item) {
-          if (s.debug) log("##################### array.remove()");
+          if (s.debug) console.log("##################### array.remove()");
           var index = array.indexOf(item);
           if (index > -1) array.splice(index, 1);
         }
@@ -220,7 +221,7 @@
       object: {
 
         add: function (obj, key, item) {
-          if (s.debug) log("##################### object.add()");
+          if (s.debug) console.log("##################### object.add()");
           if (this.collection[key] != undefined)
             return undefined;
           this.collection[key] = item;
@@ -228,7 +229,7 @@
         },
 
         remove: function (obj, key) {
-          if (s.debug) log("##################### object.remove()");
+          if (s.debug) console.log("##################### object.remove()");
           if (this.collection[key] == undefined)
             return undefined;
           delete this.collection[key]
