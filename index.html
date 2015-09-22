@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>both - detects in real time user interaction type (Mouse or Touch) and switches linked events</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<link href='http://fonts.googleapis.com/css?family=Roboto:100' rel='stylesheet' type='text/css'>
+		<link href="dist/demo.css" rel="stylesheet">
+	</head>
+	<body>
+		<header class="width-full">
+			<div class="width-fixed">
+				<div id="toggleNav" class="toggle">
+					<span class="toggle-bar"></span>
+				</div>
+				<h1 class="website-title">
+					<strong>both</strong>
+					<span>user interaction detection</span>
+				</h1>
+			</div>
+		</header>
+		<div class="width-full">
+			<div class="width-fixed">
+				<a class="button-blue" href="#button">
+					BUTTON
+				</a>
+			</div>
+		</div>
+		<footer class="width-full">
+			<div class="width-fixed">
+				&nbsp
+			</div>
+		</footer>
+		<script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
+		<script>!window.jQuery && document.write('<script src="bower_components/jquery/dist/jquery.min.js"><\/script>')</script>
+
+		<!--
+		device.js [OPTIONAL]
+		Use this to define touch or mouse events handlers right from the page load according to the device detected: without having to wait an user interaction
+		You can use an another device detection.
+		In that case, define yourself the device variable:
+
+		$('[role="menubar"]').cross({
+
+			// device type ('desktop', 'tablet' or 'mobile')
+			device: '',
+
+		});
+
+		-->
+		<script src="bower_components/devicejs/lib/device.min.js"></script>
+
+		<script src="dist/both.js"></script>
+		<script>
+			$(function() {
+
+				Both.init();
+
+				Both.store('mouse', $('.button-blue'), 'mouseenter', function (e) {
+					alert("Mickey");
+				});
+				Both.store('touch', $('.button-blue'), 'touchend', function (e) {
+					alert("Tacchi");
+				});
+
+				Both.start();
+
+			});
+		</script>
+	</body>
+</html>

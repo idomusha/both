@@ -1,0 +1,73 @@
+/* ==========================================================================
+ * BASE
+ * ========================================================================== */
+
+/* default
+ * ========================================================================== */
+
+/* Font sizing
+* ========================================================================== */
+html {
+
+  /* sets the base font to 10px for easier math */
+  font-size: 62.5%;
+
+  /* IE9-IE11 math fixing. See http://bit.ly/1g4X0bX */
+  /* thanks to @guardian, @victorbritopro and @eQRoeil */
+  font-size: calc(1em * 0.625);
+
+  /* disallow text zooming on orientation change (non standard property) */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+
+body {
+  /* sets the default sizing to make sure nothing is actually 10px */
+  font-size: 1.6rem;
+  font-size: @base-font-size;
+
+  /*20px line-height for 15px font-size */
+  line-height: (20/15);
+  font-family: @font-roboto;
+  color: @color-grey-eclipse;
+  margin: 0;
+  padding: 0;
+}
+
+@media @screen-max-mobile {
+  html {
+    font-size: 40%;
+    font-size: calc(1em * 0.4);
+  }
+}
+
+#outer-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+
+#inner-wrap {
+  position: relative;
+  width: 100%;
+}
+
+p {
+  margin: @padding-x-small 0;
+}
+
+a {
+  color: @color-grey-eclipse;
+  &.link-block {
+    text-decoration: none;
+    display: block;
+  }
+  &.link-unobtrusive {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+
+:focus {
+  outline: none !important;
+}

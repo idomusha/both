@@ -1,0 +1,303 @@
+/* ==========================================================================
+ * DEMO
+ * ========================================================================== */
+/* Variables
+ * ========================================================================== */
+/* ==========================================================================
+ * VARIABLES
+ * ========================================================================== */
+/* Base
+ * ========================================================================== */
+/* colors
+ * ========================================================================== */
+/* fonts
+ * ========================================================================== */
+/* z-index
+ * ========================================================================== */
+/* layout
+ * ========================================================================== */
+/* page
+ * ========================================================================== */
+/* steps
+ * ========================================================================== */
+/* screen
+ * ========================================================================== */
+/* border
+ * ========================================================================== */
+/* Base
+ * ========================================================================== */
+/* ==========================================================================
+ * RESET
+ * ========================================================================== */
+/* Box sizing enabled
+ * ========================================================================== */
+html {
+  box-sizing: border-box;
+}
+* {
+  box-sizing: inherit;
+}
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+/*
+ * Remove text-shadow in selection highlight:
+ * https://twitter.com/miketaylr/status/12228805301
+ *
+ * These selection rule sets have to be separate.
+ * Customize the background color to match your design.
+ */
+::-moz-selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+::selection {
+  background: #b3d4fc;
+  text-shadow: none;
+}
+/*
+ * A better looking default horizontal rule
+ */
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1em 0;
+  padding: 0;
+}
+/*
+ * Remove the gap between audio, canvas, iframes,
+ * images, videos and the bottom of their containers:
+ * https://github.com/h5bp/html5-boilerplate/issues/440
+ */
+audio,
+canvas,
+iframe,
+img,
+svg,
+video {
+  vertical-align: middle;
+}
+/*
+ * Remove default fieldset styles.
+ */
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+/*
+ * Allow only vertical resizing of textareas.
+ */
+textarea {
+  resize: vertical;
+}
+/*
+ * Browser Upgrade Prompt
+ */
+.browserupgrade {
+  margin: 0.2em 0;
+  background: #ccc;
+  color: #000;
+  padding: 0.2em 0;
+}
+/* Project specific reset
+ * ========================================================================== */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: normal;
+}
+/* ==========================================================================
+ * BASE
+ * ========================================================================== */
+/* default
+ * ========================================================================== */
+/* Font sizing
+* ========================================================================== */
+html {
+  /* sets the base font to 10px for easier math */
+  font-size: 62.5%;
+  /* IE9-IE11 math fixing. See http://bit.ly/1g4X0bX */
+  /* thanks to @guardian, @victorbritopro and @eQRoeil */
+  font-size: calc(1em * 0.625);
+  /* disallow text zooming on orientation change (non standard property) */
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+}
+body {
+  /* sets the default sizing to make sure nothing is actually 10px */
+  font-size: 1.6rem;
+  font-size: 16px;
+  /*20px line-height for 15px font-size */
+  line-height: 1.33333333;
+  font-family: 'Roboto', sans-serif;
+  color: #373737;
+  margin: 0;
+  padding: 0;
+}
+@media screen and (max-width:739px) {
+  html {
+    font-size: 40%;
+    font-size: calc(1em * 0.4);
+  }
+}
+#outer-wrap {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+}
+#inner-wrap {
+  position: relative;
+  width: 100%;
+}
+p {
+  margin: 1rem 0;
+}
+a {
+  color: #373737;
+}
+a.link-block {
+  text-decoration: none;
+  display: block;
+}
+a.link-unobtrusive {
+  text-decoration: none;
+  color: inherit;
+}
+:focus {
+  outline: none !important;
+}
+/* Layout
+ * ========================================================================== */
+/**
+ * ==========================================================================
+ * HEADER
+ * ========================================================================== */
+header {
+  min-height: 60px;
+}
+/**
+ * ==========================================================================
+ * COLOR
+ * ========================================================================== */
+header .website-title {
+  text-align: center;
+  padding: 10px 0 15px;
+  color: #000;
+}
+header .website-title strong {
+  display: block;
+  font-size: 50px;
+  line-height: 1em;
+}
+header .website-title span {
+  display: block;
+  font-size: 25px;
+  line-height: 1em;
+}
+@media screen and (max-width:739px) {
+  header .website-title {
+    padding: 5px 0 10px;
+  }
+  header .website-title strong {
+    font-size: 30px;
+  }
+  header .website-title span {
+    font-size: 15px;
+  }
+}
+header [role="menubar"] {
+  background-color: #5b162d;
+  text-align: center;
+}
+header [role="menubar"] > [role="presentation"] > [role="menuitem"] {
+  color: #fff;
+}
+@media screen and (max-width:1599px) {
+  header [role="menubar"] {
+    background-color: #722c49;
+  }
+}
+@media screen and (max-width:1439px) {
+  header [role="menubar"] {
+    background-color: #894366;
+  }
+}
+@media screen and (max-width:1279px) {
+  header [role="menubar"] {
+    background-color: #a05982;
+  }
+}
+@media screen and (max-width:959px) {
+  header [role="menubar"] {
+    background-color: #b7709f;
+  }
+}
+@media screen and (max-width:739px) {
+  header [role="menubar"] {
+    background-color: #ce86bb;
+  }
+}
+[class*="show-"] {
+  display: none;
+  color: #fff;
+  padding: 10px;
+  margin: 0 auto;
+  font-size: 22px;
+}
+@media screen and (min-width:1600px) {
+  .show-x-large {
+    display: inline-block;
+  }
+}
+@media screen and (min-width:1440px) and (max-width:1599px) {
+  .show-large {
+    display: inline-block;
+  }
+}
+@media screen and (min-width:1280px) and (max-width:1439px) {
+  .show-medium {
+    display: inline-block;
+  }
+}
+@media screen and (min-width:960px) and (max-width:1279px) {
+  .show-small {
+    display: inline-block;
+  }
+}
+@media screen and (min-width:740px) and (max-width:959px) {
+  .show-x-small {
+    display: inline-block;
+  }
+}
+@media screen and (max-width:739px) {
+  .show-mobile {
+    display: inline-block;
+  }
+}
+.button-blue {
+  border: 0 none;
+  border-radius: 0;
+  padding: 15px 30px;
+  background-color: #77c4d5;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 4px 0 0 #66abbd;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.button-blue:hover {
+  background-color: #66abbd;
+  box-shadow: 0 4px 0 0 #5793a4;
+}
+/*# sourceMappingURL=dist/demo.css.map */

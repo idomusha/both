@@ -34,12 +34,12 @@ module.exports = function(grunt) {
     },
 
     /**
-		 * less
-		 * LESS/CSS compilation
-		 * https://github.com/sindresorhus/grunt-contrib-less
-		 */
+     * less
+     * LESS/CSS compilation
+     * https://github.com/sindresorhus/grunt-contrib-less
+     */
     less: {
-      development: {
+      demo: {
         options: {
           compress: false,
           cleancss: false,
@@ -47,38 +47,16 @@ module.exports = function(grunt) {
           sourceMap: true,
           strictMath: true,
         },
-        src: ['src/less/both.less'],
-        dest: 'dist/both.css',
-      },
-      production: {
-        options: {
-          compress: true,
-          cleancss: true,
-          ieCompact: true,
-          sourceMap: true,
-          strictMath: true,
-        },
-        src: ['src/less/both.less'],
-        dest: 'dist/both.css',
+        src: ['src/less/demo.less'],
+        dest: 'dist/demo.css',
       },
     },
 
     /**
-		 * Autoprefixer
-		 * Adds vendor prefixes if need automatcily
-		 * https://github.com/nDmitry/grunt-autoprefixer
-		 */
-    autoprefixer: {
-      my_target: {
-        options: {
-          browsers: ['last 2 version', 'Firefox >= 24', 'safari 6', 'ie 9', 'opera 12.1', 'ios 6', 'android 4'],
-        },
-        src: 'dist/both.css',
-        dest: 'dist/both.css',
-      },
-    },
-
-    // Minify definitions
+     * Uglify (minify) JavaScript files
+     * Compresses and minifies all JavaScript files into one
+     * https://github.com/gruntjs/grunt-contrib-uglify
+     */
     uglify: {
       my_target: {
         src: ['dist/both.js'],
@@ -89,9 +67,11 @@ module.exports = function(grunt) {
       },
     },
 
-    // watch for changes to source
-    // Better than calling grunt a million times
-    // (call 'grunt watch')
+    /**
+     * Runs tasks against changed watched files
+     * Watching development files and run concat/compile tasks
+     * https://github.com/gruntjs/grunt-contrib-watch
+     */
     watch: {
       files: ['src/**/*'],
       tasks: ['default'],
@@ -99,7 +79,7 @@ module.exports = function(grunt) {
 
   });
 
-  grunt.registerTask('build', [/*'less:development', 'autoprefixer', */'concat', 'uglify']);
+  grunt.registerTask('build', ['less:demo','concat', 'uglify']);
   grunt.registerTask('default', ['build']);
 
 };
