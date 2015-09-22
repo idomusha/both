@@ -1,6 +1,6 @@
 {
   "name": "both",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "detects in real time user interaction type (Mouse or Touch) and switches linked events",
   "keywords": [
     "interaction",
