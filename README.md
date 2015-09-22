@@ -5,7 +5,7 @@ Because [the user may have touch AND a mouse](http://www.html5rocks.com/en/mobil
 
 ## Demo
 
-[See Cross in action](http://idomusha.github.io/both/)
+[See Both in action](http://idomusha.github.io/both/)
 
 ## Usage
 
