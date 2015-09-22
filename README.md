@@ -3,6 +3,10 @@
 ## detects in real time user interaction type (Mouse or Touch) and switches linked events
 Because [the user may have touch AND a mouse](http://www.html5rocks.com/en/mobile/touchandmouse/).
 
+## Demo
+
+[See Cross in action](http://idomusha.github.io/both/)
+
 ## Usage
 
 ### Add both.min.js before your closing <body> tag, after jQuery (requires jQuery 1.7 +)
