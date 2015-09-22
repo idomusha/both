@@ -41,12 +41,15 @@
 		You can use an another device detection.
 		In that case, define yourself the device variable:
 
-		$('[role="menubar"]').cross({
-
-			// device type ('desktop', 'tablet' or 'mobile')
-			device: '',
-
-		});
+		if (device.tablet()) {
+			Both.options = {
+				device: 'tablet'
+			};
+		} else if (device.mobile()) {
+			Both.options = {
+				device: 'mobile'
+			};
+		}
 
 		-->
 		<script src="bower_components/devicejs/lib/device.min.js"></script>
@@ -54,6 +57,19 @@
 		<script src="dist/both.js"></script>
 		<script>
 			$(function() {
+
+				<!--
+				device.js [OPTIONAL]
+				-->
+				if (device.tablet()) {
+					Both.options = {
+						device: 'tablet'
+					};
+				} else if (device.mobile()) {
+					Both.options = {
+						device: 'mobile'
+					};
+				}
 
 				Both.init();
 
