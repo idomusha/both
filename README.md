@@ -50,10 +50,10 @@ $('.your-class').on('touchend', function() {
 ```js
     Both.store('mouse', $('.your-class'), 'mouseenter', function (e) {
         alert("Mickey");
-    }
+    });
     Both.store('touch', $('.your-class'), 'touchend', function (e) {
         alert("Tacchi");
-    }
+    });
 ```
 
 ### Get your events according to interaction type detected or defined on load
