@@ -35,52 +35,18 @@
 		<script type="text/javascript" src="//code.jquery.com/jquery-2.1.4.min.js"></script>
 		<script>!window.jQuery && document.write('<script src="bower_components/jquery/dist/jquery.min.js"><\/script>')</script>
 
-		<!--
-		device.js [OPTIONAL]
-		Use this to define touch or mouse events handlers right from the page load according to the device detected: without having to wait an user interaction
-		You can use an another device detection.
-		In that case, define yourself the device variable:
-
-		if (device.tablet()) {
-			Both.options = {
-				device: 'tablet'
-			};
-		} else if (device.mobile()) {
-			Both.options = {
-				device: 'mobile'
-			};
-		}
-
-		-->
-		<script src="bower_components/devicejs/lib/device.min.js"></script>
-
 		<script src="dist/both.js"></script>
 		<script>
 			$(function() {
 
-				<!--
-				device.js [OPTIONAL]
-				-->
-				if (device.tablet()) {
-					Both.options = {
-						device: 'tablet'
-					};
-				} else if (device.mobile()) {
-					Both.options = {
-						device: 'mobile'
-					};
-				}
+				Both();
 
-				Both.init();
-
-				Both.store('mouse', $('.button-blue'), 'mouseenter', function (e) {
+				$(window).data('Both').store('mouse', $('.button-blue'), 'mouseenter', function (e) {
 					alert("Mickey");
 				});
-				Both.store('touch', $('.button-blue'), 'touchend', function (e) {
+				$(window).data('Both').store('touch', $('.button-blue'), 'touchend', function (e) {
 					alert("Tacchi");
 				});
-
-				Both.start();
 
 			});
 		</script>
