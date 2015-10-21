@@ -20,13 +20,80 @@
 				</h1>
 			</div>
 		</header>
-		<div class="width-full">
+		<section class="width-full">
 			<div class="width-fixed">
-				<a class="button-blue" href="#button">
-					BUTTON
-				</a>
+                <!--<article>
+                   <h2>Menu</h2>
+
+               </article>-->
+                <article>
+                    <h2>Test</h2>
+                    <button id="test" type="button" class="button-blue" href="#button">
+                        BUTTON
+                    </button>
+                </article>
+                <article>
+                    <h2>Form</h2>
+                    <div class="field field-radio">
+                        <label>Superhero?</label>
+                        <span class="radio-wrap">
+                            <input id="radio-1" type="radio" value="" name="radio">
+                            <label for="radio-1">Yes</label>
+                        </span>
+                        <span class="radio-wrap">
+                            <input id="radio-2" type="radio" value="" name="radio">
+                            <label for="radio-2">No</label>
+                        </span>
+                    </div>
+                    <label for="name">Name</label>
+                    <input id="name" type="text" placeholder="type here doesn't activate 'keyboard'">
+                    <label for="email">Email</label>
+                    <input id="email" type="text" placeholder="type here doesn't activate 'keyboard'">
+                    <label for="gender">Gender</label>
+                    <select id="gender">
+                        <option></option>
+                        <option>Female</option>
+                        <option>Male</option>
+                        <option>Custom</option>
+                    </select>
+                    <div class="field field-checkbox">
+                        <label>Who's your best friend?</label>
+                        <span class="checkbox-wrap">
+                            <input id="checkbox-1" type="checkbox" value="" name="checkbox">
+                            <label for="checkbox-1">Cat</label>
+                        </span>
+                        <span class="checkbox-wrap">
+                            <input id="checkbox-2" type="checkbox" value="" name="checkbox">
+                            <label for="checkbox-2">Dog</label>
+                        </span>
+                         <span class="checkbox-wrap">
+                            <input id="checkbox-3" type="checkbox" value="" name="checkbox">
+                            <label for="checkbox-3">Unicorn</label>
+                        </span>
+                    </div>
+                    <button type="submit" class="button-blue" href="#button">
+                        OKAY
+                    </button>
+                </article>
+                <article>
+                    <h2>Image Overlay Hover</h2>
+                    <figure class="effect-zoe">
+                        <img src="https://farm8.staticflickr.com/7353/12743181443_9dfd24a886_z.jpg" alt="Beautiful light">
+                        <figcaption>
+                            <h3>Beautiful light</h3>
+                            <p class="icon-links">
+                                <a href="#"><span class="icon-heart"></span></a>
+                                <a href="#"><span class="icon-eye"></span></a>
+                                <a href="#"><span class="icon-paper-clip"></span></a>
+                            </p>
+                            <p class="description">
+                                The room was vacant except for a metal slab that served as a bed and the six-legged, cat-like creature sitting on the edge of the bed watching its sleeping occupant.
+                            </p>
+                        </figcaption>
+                    </figure>
+                </article>
 			</div>
-		</div>
+		</section>
 		<footer class="width-full">
 			<div class="width-fixed">
 				&nbsp
@@ -41,12 +108,17 @@
 
 				Both();
 
-				$(window).data('Both').store('mouse', $('.button-blue'), 'mouseenter', function (e) {
-					alert("Mickey");
+				$(window).data('Both').store('mouse', $('#test'), 'mouseenter', function (e) {
+					alert("Zed's dead");
 				});
-				$(window).data('Both').store('touch', $('.button-blue'), 'touchend', function (e) {
-					alert("Tacchi");
-				});
+                $(window).data('Both').lose('mouse', $('#test'), 'mouseenter');
+
+                $(window).data('Both').store('mouse', $('#test'), 'mouseenter', function (e) {
+                    alert("Mickey");
+                });
+                $(window).data('Both').store('touch', $('#test'), 'touchend', function (e) {
+                    alert("Tacchi");
+                });
 
 			});
 		</script>
