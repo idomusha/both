@@ -70,4 +70,8 @@ a {
 
 :focus {
   outline: none !important;
+  html[data-interaction="keyboard"] & {
+    outline: 1px solid #39c !important;
+    outline-offset: -1px;
+  }
 }

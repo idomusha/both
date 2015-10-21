@@ -9,13 +9,25 @@
 //    }
 //  }
 //}
-
-section {
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
+@color-blue: #66abbd;
+.width-fixed {
+  padding: 0 20px;
+}
+body {
+  background-color: #f7f7f7;
+}
+header {
+  background-color: #fff;
+}
+h2 {
+  margin: 15px 0;
+  font-weight: 700;
+  font-size: 30px;
+}
+article {
+  position: relative;
+  max-width: 800px;
+  margin: 60px auto;
 }
 label {
   display: block;
@@ -26,12 +38,80 @@ input[type="text"],
 select {
   width: 280px;
   height: 40px;
+  line-height: 40px;
   font-size: 15px;
   padding: 10px;
   margin-bottom: 10px;
   display: block;
   border: 1px solid #ccc;
 }
+
+/* checkBox / radio
+ * ========================================================================== */
+@form-checkbox-radio-size: 15px;
+.radio-wrap, .checkbox-wrap {
+  display: inline-block;
+  //margin-bottom: 12px;
+  height: 40px;
+  line-height: 40px;
+}
+
+input[type="checkbox"] + label,
+input[type="radio"] + label {
+  margin-right: 20px;
+  line-height: 1.2em;
+  vertical-align: middle;
+  display: inline-block;
+  font-weight: 400;
+  position: relative;
+  margin-left: 20px;
+}
+
+input[type="checkbox"],
+input[type="radio"] {
+  position: absolute;
+  clip: rect(0, 0, 0, 0);
+  clip: rect(0 0 0 0);
+}
+
+input[type="checkbox"] + label::before,
+input[type="radio"] + label::before {
+  content: '';
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 10px;
+  margin-top: 0;
+  height: @form-checkbox-radio-size;
+  width: @form-checkbox-radio-size;
+  border: 1px solid @color-blue;
+  background: @color-blue;
+  box-shadow: inset 0 0 0 (@form-checkbox-radio-size/2 + .1) #fff; // cover all bg in white
+  transition: 0.3s ease;
+  position: absolute;
+  top: 4px;
+  left: -20px;
+}
+
+input[type="checkbox"] + label::before {
+  border-radius: 0;
+}
+
+input[type="radio"] + label::before {
+  border-radius: 50%;
+}
+
+input[type="checkbox"]:focus + label::before,
+input[type="radio"]:focus + label::before {
+  html[data-interaction="keyboard"] & {
+    outline: 1px solid #39c;
+  }
+}
+
+input[type="checkbox"]:checked + label::before,
+input[type="radio"]:checked + label::before {
+  box-shadow: inset 0 0 0 2px #fff; // white circle border
+}
+
 .button-blue {
   border: 0 none;
   border-radius: 0;
@@ -41,10 +121,59 @@ select {
   color: #fff;
   text-transform: uppercase;
   text-decoration: none;
-  box-shadow: 0 4px 0 0 #66abbd;
+  box-shadow: 0 4px 0 0 @color-blue;
 }
 
 .button-blue:hover {
   background-color: #66abbd;
   box-shadow: 0 4px 0 0 #5793a4;
+}
+
+
+figure {
+  background-color: @color-blue;
+  width: 640px;
+  max-width: 100%;
+  margin: 0;
+  position: relative;
+  overflow: hidden;
+  h3 {
+    font-weight: 700;
+  }
+  img {
+    width: 100%;
+    opacity: 0.66;
+    transform: translate3d(0,0,0);
+    transition: transform 0.3s ease;
+  }
+  figcaption {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 198px;
+    padding: 20px;
+    background-color: #1d1d1d;
+    color: #fff;
+    transform: translate3d(0,198px,0);
+    transition: transform 0.3s ease;
+    .description {
+      margin-bottom: 0;
+    }
+  }
+  html[data-interaction="mouse"] &:hover figcaption {
+    transform: translate3d(0,0,0);
+  }
+  html[data-interaction="mouse"] &:hover img {
+    transform: translate3d(0,-198px,0);
+    transition: transform 0.3s ease;
+  }
+  html[data-interaction="touch"] & figcaption,
+  html[data-interaction="keyboard"] & figcaption {
+    transform: none;
+    position: relative;
+    bottom: auto;
+    left: auto;
+    height: auto;
+  }
 }
