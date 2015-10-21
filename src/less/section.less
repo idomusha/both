@@ -1,0 +1,50 @@
+//input,
+//select,
+//textarea {
+//  &:focus {
+//    outline: none !important;
+//    html[data-interaction="keyboard"] & {
+//      outline: none !important;
+//      box-shadow: 0 4px 0 0 #66abbd;
+//    }
+//  }
+//}
+
+section {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+label {
+  display: block;
+  text-align: left;
+  font-size: 20px;
+}
+input[type="text"],
+select {
+  width: 280px;
+  height: 40px;
+  font-size: 15px;
+  padding: 10px;
+  margin-bottom: 10px;
+  display: block;
+  border: 1px solid #ccc;
+}
+.button-blue {
+  border: 0 none;
+  border-radius: 0;
+  margin: 10px 0;
+  padding: 15px 30px;
+  background-color: #77c4d5;
+  color: #fff;
+  text-transform: uppercase;
+  text-decoration: none;
+  box-shadow: 0 4px 0 0 #66abbd;
+}
+
+.button-blue:hover {
+  background-color: #66abbd;
+  box-shadow: 0 4px 0 0 #5793a4;
+}

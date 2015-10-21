@@ -1,11 +1,13 @@
 {
   "name": "both",
-  "version": "0.5.0",
-  "description": "detects in real time user interaction type (Mouse or Touch) and switches linked events",
+  "version": "0.6.0",
+  "description": "detects in real time user interaction type (mouse, touch or keyboard) and switches linked events",
   "keywords": [
     "interaction",
     "mouse",
     "touch",
+    "keyboard",
+    "accessibility",
     "jquery"
   ],
   "repository": {
