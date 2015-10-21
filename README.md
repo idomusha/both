@@ -1,6 +1,6 @@
 #both
 
-## detects in real time user interaction type (Mouse or Touch) and switches linked events
+## detects in real time user interaction type (mouse, touch or keyboard) and switches linked events
 Because [the user may have touch AND a mouse](http://www.html5rocks.com/en/mobile/touchandmouse/).
 
 ## Demo
