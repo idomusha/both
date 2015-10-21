@@ -1,6 +1,6 @@
 /*
- *  both - v0.4.0
- *  detects in real time user interaction type (Mouse or Touch) and switches linked events
+ *  both - v0.6.0
+ *  detects in real time user interaction type (mouse, touch or keyboard) and switches linked events
  *  https://github.com/idomusha/both
  *
  *  Made by idomusha
@@ -45,12 +45,39 @@
       _this.types = [];
       _this.touch = false;
       _this.mouse = false;
-      _this.key = false;
+      _this.keyboard = false;
       _this.handlersData = {
         mouse: [],
         touch: [],
         key: [],
       };
+
+      _this.inputs = [
+        'input',
+        'select',
+        'textarea',
+      ];
+      _this.keys = {
+        9: 'tab',
+        13: 'enter',
+        16: 'shift',
+        27: 'esc',
+        32: 'space',
+        37: 'left',
+        38: 'up',
+        39: 'right',
+        40: 'down',
+      };
+
+      // map of IE 10 and Windows 8 pointer types (IE 11 and Windows 8.1 return a string)
+      // https://msdn.microsoft.com/fr-fr/library/windows/apps/hh466130.aspx
+      /*_this.pointerTypes = {
+        2: 'touch',
+
+        // treat pen like touch
+        3: 'touch',
+        4: 'mouse',
+      };*/
 
       if (_this._debug) console.log('device:', _this.settings.device);
       if (_this.settings.device == 'mobile' || _this.settings.device == 'tablet') {
@@ -105,7 +132,7 @@
           return;
         }
 
-        _this.set('mouse', e);
+        _this.set.call(_this, 'mouse', e);
         _this.handleInteractionTypeChange(e);
 
         //comment:mousemoveend:}, _this.settings.interval);
@@ -122,6 +149,11 @@
 
       });
 
+      // keyboard
+      _this.document.on('keydown' + '.' + _this._name, function(e) {
+        _this.check.call(_this, e);
+      });
+
     },
 
     // Unbind events that trigger methods
@@ -132,24 +164,71 @@
       _this.document.off('touchstart' + '.' + _this._name);
     },
 
-    set: function(type) {
+    check: function(event) {
+      var _this = this;
+      if (_this._debug) console.log('##################### check()', event);
+
+      if (_this._debug) console.log('event.type:', event.type);
+
+      if (
+
+        // not if the key is `TAB`
+      _this.keys[_this.key(event)] !== 'tab' &&
+
+        // only if the target is one of the elements in `inputs` list
+      _this.inputs.indexOf(_this.target(event).nodeName.toLowerCase()) >= 0
+
+      ) {
+        // ignore keyboard typing on form elements
+      } else {
+        _this.set('keyboard', event);
+        _this.handleInteractionTypeChange(event);
+      }
+
+    },
+
+    set: function(type, event) {
       var _this = this;
       if (_this._debug) console.log('##################### set()', type);
 
       if (type == 'mouse') {
-        _this.$html.removeClass('touch').addClass('mouse');
+        _this.keyboard = false;
         _this.touch = false;
         _this.mouse = true;
-        _this._array.add(_this.types, 'mouse');
+        _this._array.remove(_this.types, 'keyboard');
         _this._array.remove(_this.types, 'touch');
+        _this._array.add(_this.types, 'mouse');
       } else if (type == 'touch') {
-        _this.$html.removeClass('mouse').addClass('touch');
+        _this.keyboard = false;
         _this.touch = true;
         _this.mouse = false;
-        _this._array.add(_this.types, 'touch');
+        _this._array.remove(_this.types, 'keyboard');
         _this._array.remove(_this.types, 'mouse');
+        _this._array.add(_this.types, 'touch');
+      } else if (type == 'keyboard') {
+        _this.mouse = false;
+        _this.touch = false;
+        _this.keyboard = true;
+        _this._array.remove(_this.types, 'mouse');
+        _this._array.remove(_this.types, 'touch');
+        _this._array.add(_this.types, 'keyboard');
       }
+
+      if (_this._debug) console.log('types:', _this.types);
+      _this.$html.attr('data-interaction', type);
     },
+
+    key: function(event) {
+      return (event.keyCode) ? event.keyCode : event.which;
+    },
+
+    target: function(event) {
+      return event.target || event.srcElement;
+    },
+
+    /*pointer: function(event) {
+      return (typeof event.pointerType === 'number') ? pointerTypes[event.pointerType] : event.pointerType;
+    },*/
 
     start: function() {
       this.handleInteractionTypeChange(true);
@@ -173,14 +252,20 @@
       if (_this._debug) console.log('- event', event);
       if (_this._debug) console.log('- handler', handler);
 
-      _this.handlersData[context].push({
+      _this._array.add(_this.handlersData[context], {
+          selector: selector,
+          event: event,
+          handler: handler,
+        });
+      /*_this.handlersData[context].push({
         selector: selector,
         event: event,
         handler: handler,
-      });
+      });*/
 
       if (_this._debug) console.log('handlersData', _this.handlersData);
 
+      // Wait last call to start plugin:
       // Clear prev counter, if exist.
       if (_this.interval != null) {
         clearInterval(this.interval);
@@ -199,6 +284,23 @@
       }.bind(_this), 100);
 
       // Important to .bind(this) so that context will remain consistent.
+
+    },
+
+    lose: function(context, selector, event) {
+      var _this = this;
+      if (_this._debug) console.log('##################### lose()');
+
+      if (_this._debug) console.log('- context', context);
+      if (_this._debug) console.log('- selector', selector.selector);
+      if (_this._debug) console.log('- event', event);
+      for (var i = 0; i < _this.handlersData[context].length; i++) {
+        if (_this.handlersData[context][i].selector.selector === selector.selector && _this.handlersData[context][i].event === event) {
+          _this.handlersData[context][i].selector.off(_this.handlersData[context][i].event, _this.handlersData[context][i].handler);
+          _this._array.remove(_this.handlersData[context], _this.handlersData[context][i]);
+          i--;
+        }
+      }
 
     },
 
@@ -297,7 +399,8 @@
     },*/
 
     refresh: function() {
-      if (this._debug) log('##################### refresh()');
+      var _this = this;
+      if (this._debug) console.log('##################### refresh()');
 
     },
 
@@ -344,7 +447,7 @@
     device: '',
 
     interval: 200,
-    debug: true,
+    debug: false,
   };
 
 })(jQuery, window, document);
