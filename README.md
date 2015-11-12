@@ -18,7 +18,7 @@ Because [the user may have touch AND a mouse](http://www.html5rocks.com/en/mobil
 2. Include plugin's code:
 
 	```html
-	<script src="dist/threshold.min.js"></script>
+	<script src="dist/both.min.js"></script>
 	```
 
 3. Call the plugin:
