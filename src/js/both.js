@@ -278,6 +278,11 @@
       if (_this._debug) console.log('inputs:', _this.active.input);
       if (_this._debug) console.log('keys:', _this.active.key);
       _this.$html.attr('data-interaction', _this.active.type);
+
+      if (_this.settings.class) {
+        $('html').removeClass('mouse touch keyboard');
+        $('html').addClass(_this.active.type);
+      }
     },
 
     _key: function(event) {
@@ -546,7 +551,11 @@
     // desktop, tablet, mobile
     device: '',
 
-    interval: 200,
+    //interval: 200,
+
+    // adds class in addition to the data-attribute
+    // to override Modernizr's classes (Modernizr has a useless 'touch' class positive for touch screens)
+    class: false,
     debug: true,
   };
 

@@ -1,5 +1,5 @@
 /*
- *  both - v0.6.1
+ *  both - v0.6.2
  *  detects in real time user interaction type (mouse, touch or keyboard) and switches linked events
  *  https://github.com/idomusha/both
  *
@@ -286,6 +286,11 @@
       if (_this._debug) console.log('inputs:', _this.active.input);
       if (_this._debug) console.log('keys:', _this.active.key);
       _this.$html.attr('data-interaction', _this.active.type);
+
+      if (_this.settings.class) {
+        $('html').removeClass('mouse touch keyboard');
+        $('html').addClass(_this.active.type);
+      }
     },
 
     _key: function(event) {
@@ -554,7 +559,11 @@
     // desktop, tablet, mobile
     device: '',
 
-    interval: 200,
+    //interval: 200,
+
+    // adds class in addition to the data-attribute
+    // to override Modernizr's classes (Modernizr has a useless 'touch' class positive for touch screens)
+    class: false,
     debug: true,
   };
 
