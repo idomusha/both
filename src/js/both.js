@@ -556,7 +556,7 @@
     // adds class in addition to the data-attribute
     // to override Modernizr's classes (Modernizr has a useless 'touch' class positive for touch screens)
     class: false,
-    debug: true,
+    debug: false,
   };
 
 })(jQuery, window, document);

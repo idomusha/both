@@ -1,5 +1,5 @@
 /*
- *  both - v0.6.2
+ *  both - v0.7.0
  *  detects in real time user interaction type (mouse, touch or keyboard) and switches linked events
  *  https://github.com/idomusha/both
  *
@@ -564,7 +564,7 @@
     // adds class in addition to the data-attribute
     // to override Modernizr's classes (Modernizr has a useless 'touch' class positive for touch screens)
     class: false,
-    debug: true,
+    debug: false,
   };
 
 })(jQuery, window, document);
