@@ -10,8 +10,12 @@
 //  }
 //}
 @color-blue: #66abbd;
+@color-green: #6ed28c;
+@color-violet: #7484c7;
 .width-fixed {
   padding: 0 20px;
+  max-width: 800px;
+  margin: 0 auto;
 }
 body {
   background-color: #f7f7f7;
@@ -44,6 +48,70 @@ select {
   margin-bottom: 10px;
   display: block;
   border: 1px solid #ccc;
+}
+
+header + section {
+  background-color: #333;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+.navigation {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  a {
+    background-color: #1d1d1d;
+    color: #fff;
+    flex-grow: 1;
+    text-align: center;
+    padding: 1em;
+    font-size: 1.2em;
+    text-decoration: none;
+    margin: 0 0 0 1px;
+    &:first-child {
+      margin: 0;
+    }
+  }
+  @media @screen-max-mobile {
+    flex-direction: column;
+    a {
+      margin: 1px 0 0 0;
+    }
+
+  }
+}
+.user-interaction {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+  li {
+    list-style: none;
+    flex-grow: 1;
+    text-align: center;
+    padding: 1em;
+    &.mouse,
+    &.touch,
+    &.keyboard {
+      background-color: #333;
+      color: #fff;
+      font-weight: 700;
+      font-size: 1.2em;
+    }
+    [data-interaction="mouse"] &.mouse {
+      background-color: @color-blue;
+    }
+    [data-interaction="touch"] &.touch {
+      background-color: @color-green;
+    }
+    [data-interaction="keyboard"] &.keyboard {
+      background-color: @color-violet;
+    }
+  }
 }
 
 /* checkBox / radio
@@ -103,7 +171,7 @@ input[type="radio"] + label::before {
 input[type="checkbox"]:focus + label::before,
 input[type="radio"]:focus + label::before {
   html[data-interaction="keyboard"] & {
-    outline: 1px solid #39c;
+    outline: 2px solid #dc8e3b;
   }
 }
 
@@ -140,6 +208,9 @@ figure {
   h3 {
     font-weight: 700;
   }
+  > a {
+    display: block;
+  }
   img {
     width: 100%;
     opacity: 0.66;
@@ -157,6 +228,9 @@ figure {
     color: #fff;
     transform: translate3d(0,198px,0);
     transition: transform 0.3s ease;
+    a {
+      color: #fff;
+    }
     .description {
       margin-bottom: 0;
     }

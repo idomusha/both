@@ -1,5 +1,5 @@
 /*
- *  both - v0.6.0
+ *  both - v0.6.2
  *  detects in real time user interaction type (mouse, touch or keyboard) and switches linked events
  *  https://github.com/idomusha/both
  *
@@ -17,7 +17,7 @@
 (function($, window, document, undefined) {
   'use strict';
 
-  var pluginName = 'Both';
+  var pluginName = 'both';
 
   function Plugin(options) {
 
@@ -46,11 +46,14 @@
       _this.touch = false;
       _this.mouse = false;
       _this.keyboard = false;
+
       _this.handlersData = {
         mouse: [],
         touch: [],
         key: [],
       };
+
+      _this.scroll = false;
 
       _this.inputs = [
         'input',
@@ -63,13 +66,28 @@
         16: 'shift',
         27: 'esc',
         32: 'space',
-        37: 'left',
-        38: 'up',
-        39: 'right',
-        40: 'down',
+        33: 'page up',
+        34: 'page down',
+        35: 'end',
+        36: 'home',
+        37: 'left arrow',
+        38: 'up arrow',
+        39: 'right arrow',
+        40: 'down arrow',
+      };
+
+      _this.active = {
+        type: '',
+        input: '',
+      };
+
+      _this.all = {
+        type: [],
+        keys: [],
       };
 
       // map of IE 10 and Windows 8 pointer types (IE 11 and Windows 8.1 return a string)
+      // https://msdn.microsoft.com/fr-fr/library/windows/apps/hh466130.aspx
       // https://msdn.microsoft.com/fr-fr/library/windows/apps/hh466130.aspx
       /*_this.pointerTypes = {
         2: 'touch',
@@ -117,7 +135,7 @@
       _this.document.on('mousemove' + '.' + _this._name, function(e) {
         if (_this._debug) console.log('>>> mousemove');
 
-        if (_this.types.indexOf('mouse') > -1) return;
+        if (_this.active.type === 'mouse') return;
 
         //comment:mousemoveend:if (typeof _movewait != 'undefined') {
         //comment:mousemoveend:  clearTimeout(_movewait);
@@ -127,8 +145,16 @@
         //comment:mousemoveend:if (_this._debug) console.log('>>> movewait');
 
         if (_this._debug) console.log('_touchstart', _touchstart);
+
+        // prevent false positive on mousemove with touch devices
         if (_touchstart) {
           _touchstart = false;
+          return;
+        }
+
+        // prevent false positive on mousemove when navigate with keyboard
+        if (_this.scroll & _this.active.type === 'keyboard') {
+          _this.scroll = false;
           return;
         }
 
@@ -142,7 +168,7 @@
         if (_this._debug) console.log('>>> touchstart');
         _touchstart = true;
 
-        if (_this.types.indexOf('touch') > -1) return;
+        if (_this.active.type === 'touch') return;
 
         _this.set('touch', e);
         _this.handleInteractionTypeChange(e);
@@ -170,17 +196,55 @@
 
       if (_this._debug) console.log('event.type:', event.type);
 
+      console.log('key:', _this._key(event), _this.keys[_this._key(event)]);
+      console.log('accessible key:', _this.keys.hasOwnProperty(_this._key(event)));
+
       if (
 
-        // not if the key is `TAB`
-      _this.keys[_this.key(event)] !== 'tab' &&
-
-        // only if the target is one of the elements in `inputs` list
-      _this.inputs.indexOf(_this.target(event).nodeName.toLowerCase()) >= 0
+        // if the key is a accessible key
+        _this.keys.hasOwnProperty(_this._key(event))
 
       ) {
-        // ignore keyboard typing on form elements
-      } else {
+
+        if (
+
+        // if the key is `TAB`
+        _this.keys[_this._key(event)] !== 'tab' &&
+
+        // only if the target is one of the elements in `inputs` list
+        _this.inputs.indexOf(_this._target(event).nodeName.toLowerCase()) >= 0
+
+        ) {
+          // ignore navigation keys typing on form elements
+          console.log('| ignore navigation keys typing on form element');
+          return;
+        } else /*if (
+
+          // if the key is `HOME`
+          _this.keys[_this._key(event)] === 'home' ||
+
+            // if the key is `END`
+          _this.keys[_this._key(event)] === 'end' ||
+
+            // if the key is `UP ARROW`
+          _this.keys[_this._key(event)] === 'up arrow' ||
+
+            // if the key is `DOWN ARROW`
+          _this.keys[_this._key(event)] === 'down arrow' ||
+
+            // if the key is `PAGE UP`
+          _this.keys[_this._key(event)] === 'page up' ||
+
+            // if the key is `PAGE DOWN`
+          _this.keys[_this._key(event)] === 'page down'
+
+        )*/ {
+          console.log('| this pressed key causes an event mousemove');
+          _this.scroll = true;
+        }
+
+        if (_this.active.type === 'keyboard') return;
+
         _this.set('keyboard', event);
         _this.handleInteractionTypeChange(event);
       }
@@ -190,6 +254,7 @@
     set: function(type, event) {
       var _this = this;
       if (_this._debug) console.log('##################### set()', type);
+      console.log(this);
 
       if (type == 'mouse') {
         _this.keyboard = false;
@@ -206,6 +271,7 @@
         _this._array.remove(_this.types, 'mouse');
         _this._array.add(_this.types, 'touch');
       } else if (type == 'keyboard') {
+        if (_this.active.type === 'keyboard') return;
         _this.mouse = false;
         _this.touch = false;
         _this.keyboard = true;
@@ -214,21 +280,46 @@
         _this._array.add(_this.types, 'keyboard');
       }
 
+      _this.active.type = type;
+
       if (_this._debug) console.log('types:', _this.types);
-      _this.$html.attr('data-interaction', type);
+      if (_this._debug) console.log('inputs:', _this.active.input);
+      if (_this._debug) console.log('keys:', _this.active.key);
+      _this.$html.attr('data-interaction', _this.active.type);
+
+      if (_this.settings.class) {
+        $('html').removeClass('mouse touch keyboard');
+        $('html').addClass(_this.active.type);
+      }
     },
 
-    key: function(event) {
+    _key: function(event) {
       return (event.keyCode) ? event.keyCode : event.which;
     },
 
-    target: function(event) {
+    _target: function(event) {
       return event.target || event.srcElement;
     },
 
     /*pointer: function(event) {
       return (typeof event.pointerType === 'number') ? pointerTypes[event.pointerType] : event.pointerType;
     },*/
+
+    // keyboard logging
+    _log: {
+      keys: function(eventKey) {
+        if (this.active.keys.indexOf(this.keys[eventKey]) === -1 && this.keys[eventKey]) this.active.keys.push(this.keys[eventKey]);
+      },
+    },
+
+    _unlog: {
+      keys: function(event) {
+        var eventKey = key(event);
+        var arrayPos = this.active.keys.indexOf(this.keys[eventKey]);
+
+        if (arrayPos !== -1) this.active.keys.splice(arrayPos, 1);
+      },
+    },
 
     start: function() {
       this.handleInteractionTypeChange(true);
@@ -404,6 +495,28 @@
 
     },
 
+    /**
+     * @return {string} current input type
+     */
+    getType: function() {
+      console.log(this);
+      return this.active.type;
+    },
+
+    /**
+     * @return {array} currently pressed keys
+     */
+    getKey: function() {
+      return this.active.input;
+    },
+
+    /**
+     * @return {array} all the detected input types
+     */
+    getTypes: function() {
+      return this.types;
+    },
+
   });
 
   /*window[ pluginName ] = function(options) {
@@ -446,8 +559,12 @@
     // desktop, tablet, mobile
     device: '',
 
-    interval: 200,
-    debug: false,
+    //interval: 200,
+
+    // adds class in addition to the data-attribute
+    // to override Modernizr's classes (Modernizr has a useless 'touch' class positive for touch screens)
+    class: false,
+    debug: true,
   };
 
 })(jQuery, window, document);

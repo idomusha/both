@@ -20,19 +20,45 @@
 				</h1>
 			</div>
 		</header>
+        <section class="width-full">
+            <div class="width-fixed">
+                <ul class="user-interaction">
+                    <li class="mouse">mouse</li>
+                    <li class="touch">touch</li>
+                    <li class="keyboard">keyboard</li>
+                </ul>
+            </div>
+        </section>
 		<section class="width-full">
 			<div class="width-fixed">
                 <!--<article>
                    <h2>Menu</h2>
 
                </article>-->
-                <article>
+                <article id="navigation">
+                    <h2>Menu</h2>
+                    <div class="navigation">
+                        <a class="" href="#menu">
+                            navigation
+                        </a>
+                        <a class="" href="#test">
+                            test
+                        </a>
+                        <a class="" href="#form">
+                            form
+                        </a>
+                        <a class="" href="#image">
+                            image
+                        </a>
+                    </div>
+                </article>
+                <article id="test">
                     <h2>Test</h2>
-                    <button id="test" type="button" class="button-blue" href="#button">
+                    <button type="button" class="button-blue" href="#button">
                         BUTTON
                     </button>
                 </article>
-                <article>
+                <article id="form">
                     <h2>Form</h2>
                     <div class="field field-radio">
                         <label>Superhero?</label>
@@ -75,17 +101,15 @@
                         OKAY
                     </button>
                 </article>
-                <article>
+                <article id="image">
                     <h2>Image Overlay Hover</h2>
-                    <figure class="effect-zoe">
-                        <img src="https://farm8.staticflickr.com/7353/12743181443_9dfd24a886_z.jpg" alt="Beautiful light">
+                    <figure>
+                        <a href="https://flic.kr/p/kq58ST" target="_blank">
+                            <img src="https://farm8.staticflickr.com/7353/12743181443_9dfd24a886_z.jpg" alt="Beautiful light">
+                        </a>
                         <figcaption>
-                            <h3>Beautiful light</h3>
-                            <p class="icon-links">
-                                <a href="#"><span class="icon-heart"></span></a>
-                                <a href="#"><span class="icon-eye"></span></a>
-                                <a href="#"><span class="icon-paper-clip"></span></a>
-                            </p>
+                            <h3><a href="https://flic.kr/p/kq58ST" target="_blank">Beautiful light</a> (CC BY-NC-ND 2.0)</h3>
+                            <small>by <a href="https://www.flickr.com/people/rfunnell/" target="_blank">Ross Funnell</a></small>
                             <p class="description">
                                 The room was vacant except for a metal slab that served as a bed and the six-legged, cat-like creature sitting on the edge of the bed watching its sleeping occupant.
                             </p>
@@ -106,17 +130,17 @@
 		<script>
 			$(function() {
 
-				Both();
+				both();
 
-				$(window).data('Both').store('mouse', $('#test'), 'mouseenter', function (e) {
+				$(window).data('both').store('mouse', $('.button-blue'), 'mouseenter', function (e) {
 					alert("Zed's dead");
 				});
-                $(window).data('Both').lose('mouse', $('#test'), 'mouseenter');
+                $(window).data('both').lose('mouse',$('.button-blue'), 'mouseenter');
 
-                $(window).data('Both').store('mouse', $('#test'), 'mouseenter', function (e) {
+                $(window).data('both').store('mouse', $('.button-blue'), 'mouseenter', function (e) {
                     alert("Mickey");
                 });
-                $(window).data('Both').store('touch', $('#test'), 'touchend', function (e) {
+                $(window).data('both').store('touch', $('.button-blue'), 'touchend', function (e) {
                     alert("Tacchi");
                 });
 
