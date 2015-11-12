@@ -1,5 +1,5 @@
 /*
- *  both - v0.6.0
+ *  both - v0.6.1
  *  detects in real time user interaction type (mouse, touch or keyboard) and switches linked events
  *  https://github.com/idomusha/both
  *
@@ -17,7 +17,7 @@
 (function($, window, document, undefined) {
   'use strict';
 
-  var pluginName = 'Both';
+  var pluginName = 'both';
 
   function Plugin(options) {
 

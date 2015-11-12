@@ -130,17 +130,17 @@
 		<script>
 			$(function() {
 
-				Both();
+				both();
 
-				$(window).data('Both').store('mouse', $('.button-blue'), 'mouseenter', function (e) {
+				$(window).data('both').store('mouse', $('.button-blue'), 'mouseenter', function (e) {
 					alert("Zed's dead");
 				});
-                $(window).data('Both').lose('mouse',$('.button-blue'), 'mouseenter');
+                $(window).data('both').lose('mouse',$('.button-blue'), 'mouseenter');
 
-                $(window).data('Both').store('mouse', $('.button-blue'), 'mouseenter', function (e) {
+                $(window).data('both').store('mouse', $('.button-blue'), 'mouseenter', function (e) {
                     alert("Mickey");
                 });
-                $(window).data('Both').store('touch', $('.button-blue'), 'touchend', function (e) {
+                $(window).data('both').store('touch', $('.button-blue'), 'touchend', function (e) {
                     alert("Tacchi");
                 });
 

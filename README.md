@@ -5,7 +5,7 @@ Because [the user may have touch AND a mouse](http://www.html5rocks.com/en/mobil
 
 ## Demo
 
-[See Both in action](http://idomusha.github.io/both/)
+[See both in action](http://idomusha.github.io/both/)
 
 ## Usage
 
@@ -24,7 +24,7 @@ Because [the user may have touch AND a mouse](http://www.html5rocks.com/en/mobil
 3. Call the plugin:
 
 	```javascript
-	Both();
+	both();
 	```
 
 4. Add your mouse and touch events
@@ -44,17 +44,17 @@ $('.button-blue').on('touchend', function() {
 
 #### ... becomes this!
 ```js
-    $(window).data('Both').store('mouse', $('.button-blue'), 'mouseenter', function (e) {
+    $(window).data('both').store('mouse', $('.button-blue'), 'mouseenter', function (e) {
         alert("Mickey");
     });
-    $(window).data('Both').store('touch', $('.button-blue'), 'touchend', function (e) {
+    $(window).data('both').store('touch', $('.button-blue'), 'touchend', function (e) {
         alert("Tacchi");
     });
 ```
 
 #### After that, all event handlers are added/removed according to the interaction type detected. :)
 
-## You can also grab Both using bower:
+## You can also grab both using bower:
 ```
     bower install both --save
 ```

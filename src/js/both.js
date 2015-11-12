@@ -9,7 +9,7 @@
 (function($, window, document, undefined) {
   'use strict';
 
-  var pluginName = 'Both';
+  var pluginName = 'both';
 
   function Plugin(options) {
 
