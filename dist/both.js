@@ -285,11 +285,28 @@
       if (_this._debug) console.log('types:', _this.types);
       if (_this._debug) console.log('inputs:', _this.active.input);
       if (_this._debug) console.log('keys:', _this.active.key);
-      _this.$html.attr('data-interaction', _this.active.type);
 
       if (_this.settings.class) {
-        $('html').removeClass('mouse touch keyboard');
-        $('html').addClass(_this.active.type);
+        if (_this.settings.name) {
+          if (_this.$html.attr('class') !== undefined) {
+            var classes = _this.$html.attr('class').split(' ').filter(function(c) {
+              return c.lastIndexOf(_this.settings.name, 0) !== 0;
+            });
+
+            _this.$html.attr('class', $.trim(classes.join(' ')));
+          }
+
+          _this.$html.addClass(_this.settings.name + '-' + _this.active.type);
+        } else {
+          $('html').removeClass('mouse touch keyboard');
+          _this.$html.addClass(_this.active.type);
+        }
+      } else {
+        if (_this.settings.name) {
+          _this.$html.attr('data-' + _this.settings.name, _this.active.type);
+        } else {
+          _this.$html.attr('data-' + _this.defaults.name, _this.active.type);
+        }
       }
     },
 
@@ -415,7 +432,7 @@
           selector: _this.handlersData[type][i]['selector'],
           event: _this.handlersData[type][i]['event'],
           handler: _this.handlersData[type][i]['handler'],
-        }
+        };
         _handlerData.selector.on(_handlerData.event, _handlerData.handler);
       }
     },
@@ -519,35 +536,6 @@
 
   });
 
-  /*window[ pluginName ] = function(options) {
-    var args = arguments;
-
-    if (options === undefined || typeof options === 'object') {
-      if (!$.data(window, pluginName)) {
-        $.data(window, pluginName, new Plugin(options));
-      }
-
-    } else if (typeof options === 'string' && options[0] !== '_' && options !== 'init') {
-
-      var returns;
-
-      this.each(function() {
-        var instance = $.data(this, pluginName);
-
-        if (instance instanceof Plugin && typeof instance[options] === 'function') {
-
-          returns = instance[options].apply(instance, Array.prototype.slice.call(args, 1));
-        }
-
-        if (options === 'destroy') {
-          $.data(this, pluginName, null);
-        }
-      });
-
-      return returns !== undefined ? returns : this;
-    }
-  };*/
-
   window[ pluginName ] = function(options) {
     if (!$.data(window, pluginName)) {
       $.data(window, pluginName, new Plugin(options));
@@ -559,12 +547,17 @@
     // desktop, tablet, mobile
     device: '',
 
-    //interval: 200,
+    // data attribute name (or class name prefix)
+    name: 'interaction',
 
-    // adds class in addition to the data-attribute
-    // to override Modernizr's classes (Modernizr has a useless 'touch' class positive for touch screens)
+    // data attribute (false) or class (true)
     class: false,
+
+    // set name at null or '' and class at true to override Modernizr's classes (Modernizr has a useless 'touch' class positive for touch screens)
+
+    // debug mode
     debug: false,
+    
   };
 
 })(jQuery, window, document);
