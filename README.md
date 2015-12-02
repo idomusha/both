@@ -58,22 +58,22 @@ $('.button-blue').on('touchend', function() {
 
 	```javascript
 	both({
-	
+        
         // touch screen (true) or not (false)
-        touch: false,
-    
+        touch: Modernizr.touch,         // default: false
+        
         // data attribute name (or class name prefix)
-        name: 'interaction',
-    
+        name: null,                     // default: 'interaction'
+        
         // data attribute (false) or class (true)
-        class: false,
+        class: true,                    // default: false
              
 	});
 	```
 	
-	- **touch** setting allows you to initialize the plugin with a presetted touch device (string) 
-    - **name** setting allows you to change the default data attribute name by your own (or class prefix name if 'class' is defined as true)
-    - **class** setting allows you to use a class instead of data attribute
+- **touch** setting allows you to initialize the plugin with a presetted touch device (string) 
+- **name** setting allows you to change the default data attribute name by your own (or class prefix name if **class** is defined as *true*)
+- **class** setting allows you to use a class instead of data attribute
     
 If you use a device detection solution like [device.js](https://github.com/matthewhudson/device.js) or a touch screen detection like [Modernizr(https://github.com/modernizr/modernizr), you can specify the screen type in **touch** option for not waiting the first tap on touch devices (default: false).
     
