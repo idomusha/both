@@ -57,8 +57,8 @@ $('.button-blue').on('touchend', function() {
 5. Override default values [OPTIONAL]:
 
 - **device** setting allows you to initialize the plugin with a presetted device (string) 
-- **name** setting allows you to change the default data-attribute name by your own (or class prefix name if 'class' is defined as true)
-- **class** setting allows you to use a class instead of data-attribute
+- **name** setting allows you to change the default data attribute name by your own (or class prefix name if 'class' is defined as true)
+- **class** setting allows you to use a class instead of data attribute
 
 Set**name** at *null* or *''* and **class** at *true* to desactivate class prefix (override useless Modernizr's 'touch' class which detects touch screens, no interaction type)
 
