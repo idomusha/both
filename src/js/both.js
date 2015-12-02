@@ -89,8 +89,8 @@
         4: 'mouse',
       };*/
 
-      if (_this._debug) console.log('device:', _this.settings.device);
-      if (_this.settings.device == 'mobile' || _this.settings.device == 'tablet') {
+      if (_this._debug) console.log('touch screen:', _this.settings.touch);
+      if (_this.settings.touch) {
         _this.set('touch', true);
       } else {
         _this.set('mouse', true);
@@ -536,8 +536,8 @@
 
   window[ pluginName ].defaults = {
 
-    // desktop, tablet, mobile
-    device: '',
+    // touch screen (true) or not (false)
+    touch: false,
 
     // data attribute name (or class name prefix)
     name: 'interaction',
@@ -545,11 +545,9 @@
     // data attribute (false) or class (true)
     class: false,
 
-    // set name at null or '' and class at true to override Modernizr's classes (Modernizr has a useless 'touch' class positive for touch screens)
-
     // debug mode
     debug: false,
-    
+
   };
 
 })(jQuery, window, document);
