@@ -254,7 +254,6 @@
     set: function(type, event) {
       var _this = this;
       if (_this._debug) console.log('##################### set()', type);
-      console.log(this);
 
       if (type == 'mouse') {
         _this.keyboard = false;
