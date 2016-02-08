@@ -188,8 +188,8 @@
 
       if (_this._debug) console.log('event.type:', event.type);
 
-      console.log('key:', _this._key(event), _this.keys[_this._key(event)]);
-      console.log('accessible key:', _this.keys.hasOwnProperty(_this._key(event)));
+      if (_this._debug) console.log('key:', _this._key(event), _this.keys[_this._key(event)]);
+      if (_this._debug) console.log('accessible key:', _this.keys.hasOwnProperty(_this._key(event)));
 
       if (
 
@@ -208,7 +208,7 @@
 
         ) {
           // ignore navigation keys typing on form elements
-          console.log('| ignore navigation keys typing on form element');
+          if (_this._debug) console.log('| ignore navigation keys typing on form element');
           return;
         } else /*if (
 
@@ -231,7 +231,7 @@
           _this.keys[_this._key(event)] === 'page down'
 
         )*/ {
-          console.log('| this pressed key causes an event mousemove');
+          if (_this._debug) console.log('| this pressed key causes an event mousemove');
           _this.scroll = true;
         }
 
@@ -480,7 +480,7 @@
             if (typeof obj[property] == 'object') {
               this._object.iterate(obj[property]);
             } else {
-              console.log(property + '   ' + obj[property]);
+              if (_this._debug) console.log(property + '   ' + obj[property]);
             }
           }
         }
@@ -507,7 +507,7 @@
      * @return {string} current input type
      */
     getType: function() {
-      console.log(this);
+      if (_this._debug) console.log(this);
       return this.active.type;
     },
 
