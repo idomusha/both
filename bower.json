@@ -1,7 +1,7 @@
 {
   "name": "both",
   "main": ["both.min.js"],
-  "version": "0.7.0",
+  "version": "0.7.1",
   "homepage": "https://github.com/idomusha/both",
   "repository": {
     "type": "git",
